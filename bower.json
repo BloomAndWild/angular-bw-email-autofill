@@ -6,6 +6,10 @@
   ],
   "description": "An auto-fill directive for email input boxes, user gets typeahead options in the field for popular email addresses.",
   "main": "email-autofill.js",
+  "dependencies": {
+    "lodash": "latest",
+    "angular": "~1.3.x"
+  },
   "license": "MIT",
   "ignore": [
     "**/.*",

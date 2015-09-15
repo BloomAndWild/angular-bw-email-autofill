@@ -1,5 +1,5 @@
 'use strict';
-var emailAutofill = angular.module('emailAutofill', []);
+var emailAutofill = angular.module('bw-emailAutofill', []);
 
 emailAutofill.directive('emailTypeahead', function ($compile, typeahead) {
   return {
