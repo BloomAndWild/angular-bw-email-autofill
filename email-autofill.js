@@ -30,6 +30,8 @@ emailAutofill.directive('emailTypeahead', function ($compile, typeahead) {
         });
 
         onEmailUpdated = function (email) {
+          element.val(email);
+
           if (email) {
             var currentlyTypedDomain;
             var hint;
