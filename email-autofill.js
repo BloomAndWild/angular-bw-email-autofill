@@ -30,6 +30,8 @@ emailAutofill.directive('emailTypeahead', function ($compile, typeahead) {
         });
 
         onEmailUpdated = function (email) {
+          element.val(email); // set input value to ng-model value, helps mitigate whitespace weirdness as model has ng-trim by default
+
           if (email) {
             var currentlyTypedDomain;
             var hint;
