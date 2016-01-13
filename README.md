@@ -42,3 +42,7 @@ The objectives are to make it so you can see through it to view the hint suggest
   z-index: -1;`
 
   The objectives are to position it directly on top (underneath technically) of the main input element, you may need to fiddle with these values, it might be worth making the containing element `position: relative` to help aid this.
+
+## Running unit tests
+`npm install`
+`npm run unit`
