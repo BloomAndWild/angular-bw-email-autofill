@@ -1,11 +1,16 @@
 'use strict';
 var emailAutofill = angular.module('bw-emailAutofill', []);
 
-emailAutofill.directive('emailTypeahead', function ($compile, typeahead, inputCursor) {
+emailAutofill.directive('emailTypeahead', function ($compile, typeahead) {
   return {
     restrict: 'A',
     require: 'ngModel',
-    compile: function (element) {
+    compile: function (element, attrs) {
+      // ngTrim is turned on by default which will cause sync problems with the suggested field (one has leading whitespace, one doesn't)
+      // if you need the trimmed text, do it yourself against your model :)
+      attrs.$set('ngTrim', "false");
+
+      // Appended hint field
       element.after('<input type="text" name="hint" readonly="readonly" ng-model="typeaheadHint" class="typeahead-hint">');
 
       return function(scope, element, attr, ngModel) {
@@ -15,7 +20,7 @@ emailAutofill.directive('emailTypeahead', function ($compile, typeahead, inputCu
         var updateEmailValue = function(email) {
           ngModel.$setViewValue(email);
           ngModel.$render();
-        }
+        };
 
         element.bind('keydown', function (event) {
           // Disable space press - it's not valid for emails anyway.
@@ -46,14 +51,6 @@ emailAutofill.directive('emailTypeahead', function ($compile, typeahead, inputCu
             var domainMatches = emailDomainRegex.exec(email);
             var readyToSuggest = (email.indexOf('@') > -1);
 
-            // Get the current placement of the cursor before modification
-            var cursorPosition = inputCursor.getCursorPosition(element[0]);
-            // set input value to ng-model value, helps mitigate whitespace weirdness as model has ng-trim by default
-            // element.val(email);
-            updateEmailValue(email.replace(/^\s*/, ''));
-            // set the cursor back to the original position
-            inputCursor.setCursorPosition(element[0], cursorPosition);
-
             if (readyToSuggest) {
               currentlyTypedDomain = domainMatches[1];
               suggestion = typeahead.getSuggestion(currentlyTypedDomain);
@@ -71,47 +68,6 @@ emailAutofill.directive('emailTypeahead', function ($compile, typeahead, inputCu
       };
     }
   };
-});
-
-// Simple factory to help with managing the cursor position
-emailAutofill.factory('inputCursor', function () {
-  // Bits taken from http://stackoverflow.com/questions/5755826/set-cursor-position-in-an-input-text-field
-  var setCursorPosition = function(input, pos) {
-    if(!input){ return false;}
-    if (input.createTextRange){
-      var textRange = input.createTextRange();
-      textRange.collapse(true);
-      textRange.moveStart('character', pos);
-      textRange.moveEnd('character', 0);
-      textRange.select();
-      return true;
-    } else if(input.setSelectionRange) {
-      input.setSelectionRange(pos, pos);
-      return true;
-    }
-    return false;
-  }
-
-  // Extracted from http://stackoverflow.com/a/2897510/728855
-  var getCursorPosition = function(input) {
-    if (!input) return; // No (input) element found
-    if ('selectionStart' in input) {
-      // Standard-compliant browsers
-      return input.selectionStart;
-    } else if (document.selection) {
-      // IE
-      input.focus();
-      var sel = document.selection.createRange();
-      var selLen = document.selection.createRange().text.length;
-      sel.moveStart('character', -input.value.length);
-      return sel.text.length - selLen;
-    }
-  }
-
-  return {
-    getCursorPosition: getCursorPosition,
-    setCursorPosition: setCursorPosition
-  }
 });
 
 emailAutofill.factory('typeahead', function () {
