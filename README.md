@@ -1,5 +1,7 @@
 # angular-bw-email-autofill
 
+[ ![Codeship Status for BloomAndWild/angular-bw-email-autofill](https://codeship.com/projects/a2cba380-9c7a-0133-a828-0e79d5c640a8/status?branch=master)](https://codeship.com/projects/127180)
+
 An angular module to add functionality to input fields allowing the user to autocomplete popular email domains.
 
 
