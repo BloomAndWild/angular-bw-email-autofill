@@ -23,11 +23,7 @@ emailAutofill.directive('emailTypeahead', function ($compile, typeahead) {
         };
 
         element.bind('keydown', function (event) {
-          // Disable space press - it's not valid for emails anyway.
-          // There's a odd presentation when you paste a space but you'd have to be trying pretty hard to break this in that situation :)
-          if(event.which === 32) {
-            event.preventDefault();
-          } else if((event.which === 13 || event.which === 9) && suggestedEmail) {
+          if((event.which === 13 || event.which === 9) && suggestedEmail) {
             updateEmailValue(suggestedEmail);
           }
         });
