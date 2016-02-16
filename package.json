@@ -1,6 +1,6 @@
 {
   "name": "angular-bw-email-autofill",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An auto-fill directive for email input boxes, user gets typeahead options in the field for popular email addresses.",
   "main": "email-autofill.js",
   "authors": [
