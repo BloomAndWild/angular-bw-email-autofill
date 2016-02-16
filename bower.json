@@ -2,7 +2,8 @@
   "name": "angular-email-autofill",
   "version": "0.0.1",
   "authors": [
-    "Merrick Fox <merrick.fox@gmail.com>"
+    "Merrick Fox <merrick.fox@gmail.com>",
+    "James Broad <jb@kulor.com>"
   ],
   "description": "An auto-fill directive for email input boxes, user gets typeahead options in the field for popular email addresses.",
   "main": "email-autofill.js",

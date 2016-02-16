@@ -5,17 +5,26 @@ emailAutofill.directive('emailTypeahead', function ($compile, typeahead) {
   return {
     restrict: 'A',
     require: 'ngModel',
-    compile: function (element) {
+    compile: function (element, attrs) {
+      // ngTrim is turned on by default which will cause sync problems with the suggested field (one has leading whitespace, one doesn't)
+      // if you need the trimmed text, do it yourself against your model :)
+      attrs.$set('ngTrim', "false");
+
+      // Appended hint field
       element.after('<input type="text" name="hint" readonly="readonly" ng-model="typeaheadHint" class="typeahead-hint">');
 
       return function(scope, element, attr, ngModel) {
         var onEmailUpdated;
         var suggestedEmail;
 
+        var updateEmailValue = function(email) {
+          ngModel.$setViewValue(email);
+          ngModel.$render();
+        };
+
         element.bind('keydown', function (event) {
           if((event.which === 13 || event.which === 9) && suggestedEmail) {
-            ngModel.$setViewValue(suggestedEmail);
-            ngModel.$render();
+            updateEmailValue(suggestedEmail);
           }
         });
 
@@ -30,8 +39,6 @@ emailAutofill.directive('emailTypeahead', function ($compile, typeahead) {
         });
 
         onEmailUpdated = function (email) {
-          element.val(email); // set input value to ng-model value, helps mitigate whitespace weirdness as model has ng-trim by default
-
           if (email) {
             var currentlyTypedDomain;
             var hint;

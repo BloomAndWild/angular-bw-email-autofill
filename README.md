@@ -1,5 +1,7 @@
 # angular-bw-email-autofill
 
+[ ![Codeship Status for BloomAndWild/angular-bw-email-autofill](https://codeship.com/projects/a2cba380-9c7a-0133-a828-0e79d5c640a8/status)](https://codeship.com/projects/127180)
+
 An angular module to add functionality to input fields allowing the user to autocomplete popular email domains.
 
 
@@ -42,3 +44,7 @@ The objectives are to make it so you can see through it to view the hint suggest
   z-index: -1;`
 
   The objectives are to position it directly on top (underneath technically) of the main input element, you may need to fiddle with these values, it might be worth making the containing element `position: relative` to help aid this.
+
+## Running unit tests
+`npm install`
+`npm run unit`
