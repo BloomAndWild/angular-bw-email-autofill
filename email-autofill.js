@@ -11,7 +11,7 @@ emailAutofill.directive('emailTypeahead', function ($compile, typeahead) {
       attrs.$set('ngTrim', "false");
 
       // Appended hint field
-      element.after('<input type="text" name="hint" readonly="readonly" ng-model="typeaheadHint" class="typeahead-hint">');
+      element.after('<input type="text" name="hint" readonly="readonly" ng-model="typeaheadHint" class="typeahead-hint" tabindex=0>');
 
       return function(scope, element, attr, ngModel) {
         var onEmailUpdated;
